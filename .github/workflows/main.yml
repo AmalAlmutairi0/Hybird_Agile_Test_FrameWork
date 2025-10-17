@@ -1,0 +1,26 @@
+name: tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch: # Allows you to run it manually from the "Run workflow" button
+
+jobs:
+  run:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - name: Run hybrid tests (headless)
+        env:
+          BROWSER: chrome
+          HEADLESS: "1"
+        run: python Hybrid_Agile_Framework/Tests/TestRunner.py
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: Hybrid_Agile_Framework/results/*
