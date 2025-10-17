@@ -1,0 +1,6 @@
+Username,Password,Expected_Result
+student,Password123,Success
+wrongUser,Password123,Failure
+student,wrongPass,Failure
+empty,Password123,Failure
+invalid_user,invalid_pass,Failure
