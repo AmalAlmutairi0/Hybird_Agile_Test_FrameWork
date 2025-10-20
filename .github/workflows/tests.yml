@@ -17,24 +17,12 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Show repo tree (debug)
-        shell: pwsh
-        run: |
-          Write-Host "PWD:"
-          pwd
-          Write-Host "`nRoot listing:"
-          dir
-          Write-Host "`nTry listing project folder:"
-          if (Test-Path Hybrid_Agile_Framework) { dir Hybrid_Agile_Framework }
-          if (Test-Path Hybrid_Agile_Framework\Tests) { dir Hybrid_Agile_Framework\Tests }
-          if (Test-Path Tests) { dir Tests }
-
       - name: Upgrade pip & install deps
         shell: pwsh
         run: |
           python -m pip install -U pip
-          if (Test-Path  requirements.txt) {
-            pip install -r  requirements.txt
+          if (Test-Path requirements.txt) {
+            pip install -r requirements.txt
           } else {
             Write-Error "requirements.txt not found at repo root"
             exit 1
@@ -45,31 +33,19 @@ jobs:
         env:
           BROWSER: chrome
           HEADLESS: "1"
-        run: |
-          $ErrorActionPreference = "Stop"
-          if (Test-Path Hybrid_Agile_Framework/Tests/TestRunner.py) {
-            python Hybrid_Agile_Framework/Tests/TestRunner.py
-          } elseif (Test-Path Tests/TestRunner.py) {
-            python Tests/TestRunner.py
-          } else {
-            Write-Host "Couldn't find TestRunner.py. Searching recursively..."
-            Get-ChildItem -Recurse -Filter TestRunner.py | Select-Object -First 20 | Format-List FullName
-            exit 1
-          }
+        run: python -m Tests.TestRunner
 
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
           name: reports
           path: |
-            Hybrid_Agile_Framework/results/*
             results/*
 
-      - name: Save runner logs (always)
+      - name: Save runner logs
         if: always()
         shell: pwsh
-        run: |
-          Get-ChildItem -Recurse | Out-File -FilePath repo_tree.txt
+        run: Get-ChildItem -Recurse | Out-File -FilePath repo_tree.txt
           
       - name: Upload debug tree
         if: always()
