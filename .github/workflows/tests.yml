@@ -47,10 +47,10 @@ jobs:
           HEADLESS: "1"
         run: |
           $ErrorActionPreference = "Stop"
-          if (Test-Path Hybrid_Agile_Framework\Tests\TestRunner.py) {
-            python Hybrid_Agile_Framework\Tests\TestRunner.py
-          } elseif (Test-Path Tests\TestRunner.py) {
-            python Tests\TestRunner.py
+          if (Test-Path Hybrid_Agile_Framework/Tests/TestRunner.py) {
+            python Hybrid_Agile_Framework/Tests/TestRunner.py
+          } elseif (Test-Path Tests/TestRunner.py) {
+            python Tests/TestRunner.py
           } else {
             Write-Host "Couldn't find TestRunner.py. Searching recursively..."
             Get-ChildItem -Recurse -Filter TestRunner.py | Select-Object -First 20 | Format-List FullName
