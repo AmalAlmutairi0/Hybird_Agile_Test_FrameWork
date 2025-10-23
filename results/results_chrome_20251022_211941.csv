@@ -1,0 +1,6 @@
+Scenario,Username,Expected,Actual_Result,Match,Duration (s)
+Test 1,student,Success,Success,PASS,0.86
+Test 2,wrongUser,Failure,Failure,PASS,10.56
+Test 3,student,Failure,Failure,PASS,10.8
+Test 4,empty,Failure,Failure,PASS,10.88
+Test 5,invalid_user,Failure,Failure,PASS,10.86

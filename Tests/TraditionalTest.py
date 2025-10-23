@@ -20,7 +20,7 @@ def run_traditional_test():
     driver.quit()
     end_time = time.time()
     
-    print(f"\nTraditional Test Time (Single Run): {round(end_time - start_time, 2)} seconds")
+    print(f"\n Traditional Test Time (Single Run): {round(end_time - start_time, 2)} seconds")
 
 if __name__ == "__main__":
     run_traditional_test()
