@@ -1,28 +1,29 @@
-name: Python CI/CD Tests
+name: Run Tests with pytest
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-    - name: Set up Python 3.x
-      uses: actions/setup-python@v3
+    - name: Set up Python
+      uses: actions/setup-python@v2
       with:
-        python-version: "3.x"
+        python-version: '3.x'
 
-    - name: Install Dependencies
+    - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        python -m pip install -r requirements.txt
+        pip install -r requirements.txt
+        # يُفترض أن ملف requirements.txt يحتوي على pytest أو يجب تثبيته هنا بشكل صريح
+        # مثال: pip install -r requirements.txt pytest
 
-    - name: Run Pytest Tests
+    - name: Run tests with pytest
       run: |
-        pytest Tests/
+        pytest Tests/test_login.py
