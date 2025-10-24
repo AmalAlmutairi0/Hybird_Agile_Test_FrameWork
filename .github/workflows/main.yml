@@ -1,32 +1,31 @@
 name: tests
+
 on:
   push:
     branches: [main]
   pull_request:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   run:
     runs-on: windows-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
+          
       - name: Install dependencies
         run: pip install -r requirements.txt
-
-      - name: Run hybrid tests (headless)
+        
+      - name: Run Hybrid tests (headless)
         env:
           BROWSER: chrome
           HEADLESS: "1"
-        run: python "C:\Users\amals\Desktop\Hybrid_Agile_Framework\Tests\TestRunner.py"
-
+        run: python Hybrid_Agile_Framework/Tests/TestRunner.py
+          
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
