@@ -25,7 +25,7 @@ jobs:
         env:
           BROWSER: chrome
           HEADLESS: "1"
-        run: python Hybrid_Agile_Framework/Tests/TestRunner.py
+        run: python "C:\Users\amals\Desktop\Hybrid_Agile_Framework\Tests\TestRunner.py"
 
       - name: Upload results
         uses: actions/upload-artifact@v4
